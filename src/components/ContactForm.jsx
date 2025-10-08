@@ -40,15 +40,17 @@ export default function ContactForm() {
     try {
       const response = await submitContactForm(data);
 
-      if (response.status === "success") {
+      if (response?.status === "success") {
         setShowConfirmation(true);
         reset();
       } else {
-        setSubmitError(response.message || "Failed to submit. Please try again.");
+        setSubmitError(
+          response?.message || "Failed to submit. Please try again."
+        );
       }
     } catch (err) {
       setSubmitError("Error submitting form. Please try again later.");
-      console.error(err);
+      console.error("Form submission error:", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -64,10 +66,16 @@ export default function ContactForm() {
           Contact Our Team
         </h2>
 
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form
+          className="space-y-6"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+        >
           {/* Parent Name */}
           <div>
-            <label className="block font-semibold mb-1">Parent/Guardian Name *</label>
+            <label className="block font-semibold mb-1">
+              Parent/Guardian Name *
+            </label>
             <input
               type="text"
               placeholder="Enter full name"
@@ -75,7 +83,9 @@ export default function ContactForm() {
               className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
             {errors.parentName && (
-              <p className="text-red-500 text-sm mt-1">{errors.parentName.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.parentName.message}
+              </p>
             )}
           </div>
 
@@ -89,7 +99,9 @@ export default function ContactForm() {
               className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             />
             {errors.childAge && (
-              <p className="text-red-500 text-sm mt-1">{errors.childAge.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.childAge.message}
+              </p>
             )}
           </div>
 
@@ -109,7 +121,9 @@ export default function ContactForm() {
               </label>
             </div>
             {errors.devDelays && (
-              <p className="text-red-500 text-sm mt-1">{errors.devDelays.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.devDelays.message}
+              </p>
             )}
           </div>
 
@@ -126,7 +140,9 @@ export default function ContactForm() {
               <option value="+44">UK (+44)</option>
             </select>
             {errors.countryCode && (
-              <p className="text-red-500 text-sm mt-1">{errors.countryCode.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.countryCode.message}
+              </p>
             )}
           </div>
 
