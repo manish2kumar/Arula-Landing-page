@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ConfirmationCard from "./ConfirmationCard";
 import { submitContactForm } from "../utils/api";
+import { AnimatePresence } from "framer-motion";
 
 // Zod validation schema
 const contactSchema = z.object({
@@ -224,12 +225,15 @@ export default function ContactForm() {
           </div>
         </form>
 
-        {showConfirmation && (
-          <ConfirmationCard
-            message="Thank you! Your request has been submitted."
-            onClose={() => setShowConfirmation(false)}
-          />
-        )}
+        {/* Confirmation Card */}
+        <AnimatePresence>
+          {showConfirmation && (
+            <ConfirmationCard
+              message="Thank you! Your request has been submitted."
+              onClose={() => setShowConfirmation(false)}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
