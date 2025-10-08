@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+
   if (req.method === "OPTIONS") {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -20,11 +21,20 @@ export default async function handler(req, res) {
       body: JSON.stringify(req.body),
     });
 
-    const data = await response.json();
+    const text = await response.text();
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.warn("Could not parse Apps Script response as JSON:", text);
+      data = { status: "error", message: "Invalid response from Apps Script" };
+    }
+
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (err) {
-    console.error(err);
+    console.error("Serverless function error:", err);
     res
       .status(500)
       .json({ status: "error", message: err.message || "Request failed" });
