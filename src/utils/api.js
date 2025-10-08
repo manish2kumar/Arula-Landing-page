@@ -10,7 +10,15 @@ export const submitContactForm = async (formData) => {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
 
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch (err) {
+      const text = await res.text();
+      console.warn("Fallback, Apps Script response not JSON:", text);
+      throw new Error("Invalid response from Apps Script.");
+    }
+
     return data;
   } catch (error) {
     console.error("Error submitting form:", error);
