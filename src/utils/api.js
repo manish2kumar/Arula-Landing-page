@@ -1,4 +1,3 @@
-
 export const submitContactForm = async (formData) => {
   try {
     const res = await fetch("/api/submit", {
