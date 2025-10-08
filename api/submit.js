@@ -21,18 +21,19 @@ export default async function handler(req, res) {
     });
 
     const text = await response.text();
+
     let data;
     try {
       data = JSON.parse(text);
-    } catch
-      data = { status: "success", message: "Your response has been recorded!" };
+    } catch {
+      data = { status: "success", message: "Saved successfully!" };
     }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (err) {
-    console.error(err);
-    res
+    console.error("API submit error:", err);
+    return res
       .status(500)
       .json({ status: "error", message: err.message || "Request failed" });
   }
