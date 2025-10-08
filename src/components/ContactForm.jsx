@@ -36,8 +36,10 @@ export default function ContactForm() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setSubmitError("");
+
     try {
       const response = await submitContactForm(data);
+
       if (response.status === "success") {
         setShowConfirmation(true);
         reset();
@@ -172,7 +174,7 @@ export default function ContactForm() {
             <p className="text-red-500 text-center text-sm mt-2">{submitError}</p>
           )}
 
-          {/* Get in Touch Button */}
+          {/* Submit Button */}
           <div className="flex justify-center">
             <button
               type="submit"
@@ -205,14 +207,14 @@ export default function ContactForm() {
             </button>
           </div>
         </form>
-      </div>
 
-      {showConfirmation && (
-        <ConfirmationCard
-          message="Thank you! Your request has been submitted."
-          onClose={() => setShowConfirmation(false)}
-        />
-      )}
+        {showConfirmation && (
+          <ConfirmationCard
+            message="Thank you! Your request has been submitted."
+            onClose={() => setShowConfirmation(false)}
+          />
+        )}
+      </div>
     </section>
   );
 }
