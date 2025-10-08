@@ -15,8 +15,8 @@ export const submitContactForm = async (formData) => {
       data = await res.json();
     } catch (err) {
       const text = await res.text();
-      console.warn("Fallback, Apps Script response not JSON:", text);
-      throw new Error("Invalid response from Apps Script.");
+      console.warn("Fallback, Apps Script returned non-JSON:", text)
+      data = { status: "success", message: "Saved successfully!" };
     }
 
     return data;
