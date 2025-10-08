@@ -1,3 +1,4 @@
+
 export const submitContactForm = async (formData) => {
   try {
     const res = await fetch("/api/submit", {
@@ -5,6 +6,10 @@ export const submitContactForm = async (formData) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
 
     const data = await res.json();
     return data;
