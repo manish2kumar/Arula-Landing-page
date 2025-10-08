@@ -1,6 +1,4 @@
-
 export default async function handler(req, res) {
-
   if (req.method === "OPTIONS") {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -13,7 +11,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch(import.meta.env.VITE_APPS_SCRIPT_URL, {
+    const APPS_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbzPFUTtGDWgyQOM6S3SQWqsw3BBvtu-USjLxp5Fh5uSTddSNr1Y6b8bmCuvgVXhSfGe/exec";
+
+    const response = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(req.body),
