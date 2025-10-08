@@ -24,8 +24,8 @@ export default async function handler(req, res) {
     let data;
     try {
       data = JSON.parse(text);
-    } catch {
-      data = { status: "success" }; 
+    } catch
+      data = { status: "success", message: "Your response has been recorded!" };
     }
 
     res.setHeader("Access-Control-Allow-Origin", "*");
